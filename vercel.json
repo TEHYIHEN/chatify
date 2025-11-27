@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://chatify-beta-kohl.vercel.app/api/:path*"
+      "destination": "api/:path*"
     }
   ]
 }
