@@ -17,6 +17,10 @@ const __dirname = path.dirname(__filename);
 
 const PORT = process.env.PORT || 3000;
 
+// Parse JSON and urlencoded bodies so POST /api/auth/signup works
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
