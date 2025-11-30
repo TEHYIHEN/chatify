@@ -7,6 +7,7 @@ import { fileURLToPath } from "url";
 
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from"./routes/message.route.js";
+import { connectDB } from "./lib/db.js";  //if use export default connectDB in db,js, then no need {};
 
 dotenv.config();
 
@@ -18,7 +19,7 @@ const __dirname = path.dirname(__filename);
 const PORT = process.env.PORT || 3000;
 
 // Parse JSON and urlencoded bodies so POST /api/auth/signup works
-app.use(express.json());
+app.use(express.json()); //req body
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoutes);
@@ -34,4 +35,9 @@ if(process.env.NODE_ENV === "production"){
     })
 };
 
-app.listen(PORT, () => console.log("Server running on port:" + PORT));
+app.listen(PORT, () => {
+
+    console.log("Server running on port:" + PORT);
+    connectDB();
+
+});
