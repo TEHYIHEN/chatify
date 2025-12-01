@@ -1,6 +1,8 @@
+import { sendWelcomeEmail } from "../emails/emailHandlers.js";
 import { generateToken } from "../lib/utils.js";
 import User from "../models/user.js";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
+import "dotenv/config";
 
 export const signup = async (req, res) =>{
 
@@ -86,13 +88,19 @@ export const signup = async (req, res) =>{
 
             res.status(201).json({
 
-                _id: newUser._id,
-                fullName: newUser.fullName,
-                eamil: newUser.email,
-                profilePic: newUser.profilePic,
+                _id: savedUser._id,
+                fullName: savedUser.fullName,
+                eamil: savedUser.email,
+                profilePic: savedUser.profilePic,
 
             });
-            //todo: send a welcome email to user
+          
+            try {
+                await sendWelcomeEmail(savedUser.email, savedUser.fullName, process.env.CLIENT_URL);
+            } catch (error) {
+                console.error("Failed to send welcome email:", error);
+            }
+
         } else{
             res.status(400).json({message:"Invalid user data"});
         };
@@ -100,7 +108,17 @@ export const signup = async (req, res) =>{
     } catch (error) {
 
         console.log("Error in signup controller",error);
-        res.status(500).json({message: "Internal server error"});
+
+        //handle race-condition: unique email contraint violation
+        // 1. By CR
+        //if (error?.code === 11000 && (error.keyPattern?.email || error.keyValue?.email)) {
+        //return res.status(409).json({ message: "Email already exists" });
+        //}
+
+        //2. By GPT
+        if(isUniqueEmailError(error)){return res.status(409).json({message:"Email already exists"})};
         
-    };
+        return res.status(500).json({message: "Internal server error"});
+        
+    }
 };

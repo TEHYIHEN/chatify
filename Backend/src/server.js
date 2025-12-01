@@ -8,6 +8,7 @@ import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from"./routes/message.route.js";
 import { connectDB } from "./lib/db.js";  //if use export default connectDB in db,js, then no need {};
+import { error } from "console";
 
 dotenv.config();
 
@@ -35,9 +36,18 @@ if(process.env.NODE_ENV === "production"){
     })
 };
 
-app.listen(PORT, () => {
+/*app.listen(PORT, () => {
 
     console.log("Server running on port:" + PORT);
     connectDB();
 
+});*/
+
+connectDB().then(()=>{
+    app.listen(PORT,()=>{
+        console.log(`Server running on port: ${PORT}`);
+    });
+}).catch((error)=>{
+    console.error("Failed to connect to MongoDB:" , err);
+    process.exit(1);
 });

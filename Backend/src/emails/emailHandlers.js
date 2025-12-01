@@ -1,0 +1,51 @@
+import { resendClient, sender } from "../lib/resend.js";
+import { createWelcomeEmailTemplate } from "../emails/emailTemplate.js";
+import nodemailer from "nodemailer";
+import "dotenv/config";
+
+/*export const sendWelcomeEmail = async (email,name,clientURL) =>{
+
+    const {data,error} = await resendClient.emails.send({
+        
+        from:`${sender.name} <${sender.email}>`,
+        to: email,
+        subject:"Welcome to ChatTeh!",
+        html: createWelcomeEmailTemplate(name,clientURL)
+    });
+
+    if(error){
+        console.error("Error sending welcome email:", error);
+        throw new Error("Failed to send welcome email");
+    }
+
+    console.log("Welcome Email sent successfully", data);
+};*/
+
+
+export const sendWelcomeEmail = async (email, name, clientURL) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      host: "smtp.resend.com",
+      port: 587,
+      secure: false, // TLS
+      auth: {
+        user: process.env.RESEND_SMTP_USERNAME,
+        pass: process.env.RESEND_SMTP_PASSWORD
+      }
+    });
+
+    const mailOptions = {
+      from: `"${sender.name}" <${sender.email}>`,
+      to: email,
+      subject: "Welcome to ChatTeh!",
+      html: createWelcomeEmailTemplate(name, clientURL)
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Welcome Email sent successfully:", info.messageId);
+  } catch (error) {
+    // Log the full error
+    console.error("Full SMTP error:", error);
+    throw error; // Re-throw the original error for more detail
+  }
+};
