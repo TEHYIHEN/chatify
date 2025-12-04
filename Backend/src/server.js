@@ -2,6 +2,7 @@
 
 import express from "express"; //after change type: module
 //import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 import path from "path"; //no need install due to in package of node
 import { fileURLToPath } from "url";
 
@@ -22,6 +23,9 @@ const PORT = ENV.PORT || 3000;
 // Parse JSON and urlencoded bodies so POST /api/auth/signup works
 app.use(express.json()); //req body
 app.use(express.urlencoded({ extended: true }));
+
+//Parse Cookie
+app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
