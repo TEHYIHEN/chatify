@@ -4,6 +4,8 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "@arcjet/inspect": "^1.0.0-beta.15",
+    "@arcjet/node": "^1.0.0-beta.15",
     "accepts": "^2.0.0",
     "bcryptjs": "^3.0.3",
     "body-parser": "^2.2.1",
