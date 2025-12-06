@@ -3,6 +3,10 @@ import { isSpoofedBot } from "@arcjet/inspect";
 
 export const arcjetProtection = async (req, res, next) => {
 
+        if (process.env.NODE_ENV === "development") {
+        return next();
+    }
+
     try {
         
         const decision = await aj.protect(req);
@@ -15,7 +19,7 @@ export const arcjetProtection = async (req, res, next) => {
 
                 
 
-            }else if(decision.reason.isBot()){
+            }else if(decision.reason?.isBot?.()){
                 
                 return res.status(403).json({message:"Bot access denied."});
 
