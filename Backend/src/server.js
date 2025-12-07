@@ -5,11 +5,13 @@ import express from "express"; //after change type: module
 import cookieParser from "cookie-parser";
 import path from "path"; //no need install due to in package of node
 import { fileURLToPath } from "url";
+import cors from "cors";
 
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from"./routes/message.route.js";
 import { connectDB } from "./lib/db.js";  //if use export default connectDB in db,js, then no need {};
 import { ENV } from "./lib/env.js";
+
 
 //dotenv.config();
 
@@ -23,6 +25,12 @@ const PORT = ENV.PORT || 3000;
 // Parse JSON and urlencoded bodies so POST /api/auth/signup works
 app.use(express.json()); //req body
 app.use(express.urlencoded({ extended: true }));
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  ENV.CLIENT_URL
+].filter(Boolean); // removes undefined
+app.use(cors({origin:allowedOrigins, credentials:true})); //CORS is a browser security feature that controls which websites are allowed to access your server.
 
 //Parse Cookie
 app.use(cookieParser());
