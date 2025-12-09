@@ -1,5 +1,6 @@
 import React from 'react'
 import { useChatStore } from '@/store/useChatStore.js';
+
 import BorderAnimatedContainer from '@/components/BorderAnimatedContainer.jsx';
 import ProfileHeader from '@/components/ProfileHeader';
 import ActiveTabSwitch from '@/components/ActiveTabSwitch';
