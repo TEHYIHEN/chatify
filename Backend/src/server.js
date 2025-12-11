@@ -23,7 +23,7 @@ const __dirname = path.dirname(__filename);
 const PORT = ENV.PORT || 3000;
 
 // Parse JSON and urlencoded bodies so POST /api/auth/signup works
-app.use(express.json()); //req body
+app.use(express.json({limit:"1mb"})); //req body  //limit the picture size
 app.use(express.urlencoded({ extended: true }));
 
 const allowedOrigins = [

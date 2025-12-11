@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useChatStore } from '@/store/useChatStore';
 import { useAuthStore } from '@/store/useAuthStore'; 
 import ChatHeader from './ChatHeader';
@@ -10,14 +10,20 @@ const ChatContainer = () => {
 
   const {selectedUser, getMessagesByUserId, messages, isMessagesLoading} = useChatStore();
   const {authUser} = useAuthStore();
+  const bottomRef = useRef(null); // New code for make sure the newest chat alway at bottom, no need to scroll down
 
   useEffect(() =>{
     if(!selectedUser?._id) return; // to prevent crash
     getMessagesByUserId(selectedUser._id);
   }, [selectedUser?._id, getMessagesByUserId]);
 
+  //Make sure the latest chat at btm
+   useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
-    <div>
+     <div className="h-full flex flex-col">
       <ChatHeader />
       <div className='flex-1 px-6 overflow-y-auto py-8'>
         {messages?.length > 0 && !isMessagesLoading ? (
@@ -38,17 +44,18 @@ const ChatContainer = () => {
                     {new Date(msg.createdAt).toLocaleTimeString([], { 
                       hour: "2-digit", 
                       minute: "2-digit",
-                      hour12: false 
+                      //hour12: false 
                     })}
                   </p>
                 </div>
               </div>
             ))}
+              <div ref={bottomRef} /> {/*latest chat Alway stay at bottom */}
           </div>
         ) : isMessagesLoading ? <MessagesLoadingSkeleton /> 
           :(<NoChatHistoryPlaceholder name={selectedUser?.fullName} />)}
       </div>
-      <MessagesInput />
+      <MessagesInput className=""/>
     </div>
   )
 }
