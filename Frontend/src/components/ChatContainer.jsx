@@ -8,14 +8,18 @@ import MessagesLoadingSkeleton from './MessagesLoadingSkeleton';
 
 const ChatContainer = () => {
 
-  const {selectedUser, getMessagesByUserId, messages, isMessagesLoading} = useChatStore();
+  const {selectedUser, getMessagesByUserId, messages, isMessagesLoading, subscribeToMessage, unsubscribeFromMessage} = useChatStore();
   const {authUser} = useAuthStore();
   const bottomRef = useRef(null); // New code for make sure the newest chat alway at bottom, no need to scroll down
 
   useEffect(() =>{
     if(!selectedUser?._id) return; // to prevent crash
     getMessagesByUserId(selectedUser._id);
-  }, [selectedUser?._id, getMessagesByUserId]);
+    subscribeToMessage();
+
+    //clean up
+    return () => unsubscribeFromMessage();
+  }, [selectedUser?._id, getMessagesByUserId, subscribeToMessage, unsubscribeFromMessage]);
 
   //Make sure the latest chat at btm
    useEffect(() => {
