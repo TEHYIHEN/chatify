@@ -11,11 +11,12 @@ import authRoutes from "./routes/auth.route.js";
 import messageRoutes from"./routes/message.route.js";
 import { connectDB } from "./lib/db.js";  //if use export default connectDB in db,js, then no need {};
 import { ENV } from "./lib/env.js";
+import { app, server } from "./lib/socket.js"; //added after create socket in last section
 
 
 //dotenv.config();
 
-const app = express();
+//const app = express();  //move to socket.js
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -56,7 +57,7 @@ if(ENV.NODE_ENV === "production"){
 });*/
 
 connectDB().then(()=>{
-    app.listen(PORT,()=>{
+    server.listen(PORT,()=>{  //app change to server after added the socket.js
         console.log(`Server running on port: ${PORT}`);
     });
 }).catch((error)=>{
