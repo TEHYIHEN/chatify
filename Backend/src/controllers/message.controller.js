@@ -3,7 +3,6 @@ import { getReceiverSocketId } from "../lib/socket.js";
 import Message from "../models/message.js";
 import User from "../models/user.js";
 import mongoose from "mongoose";
-import { io } from "../lib/socket.js";
 
 export const getAllContacts = async(req, res) => {
 
@@ -58,11 +57,17 @@ export const sendMessage = async (req, res) => {
 
 /*--------------------------------------------------------------------------------------------------------------*/
 
+         // Validate receiverId
+        if (!mongoose.Types.ObjectId.isValid(receiverId)) {
+            return res.status(400).json({ message: "Invalid receiver ID." });
+        };       
+
         //Added from codeRabbit
         //Block empty message, self-DMs(if disallowed), and non-existing targets
         if (!text && !image) {
             return res.status(400).json({ message: "Text or image is required." });
         };
+        
         
         if (senderId.equals(receiverId)) {
             return res.status(400).json({ message: "Cannot send messages to yourself." });
@@ -77,9 +82,18 @@ export const sendMessage = async (req, res) => {
         let imageUrl;
         if(image) {
 
+            try{
             //upload base64 image to cloudinary
             const uploadResponse = await cloudinary.uploader.upload(image);
             imageUrl = uploadResponse.secure_url;
+
+           }catch(error){
+
+            console.error("Cloudinary upload failed:", error);
+            return res.status(500).json({message:"Image upload failed."});
+
+           }
+
         }
 
         const newMessage = new Message({
@@ -91,7 +105,7 @@ export const sendMessage = async (req, res) => {
         });
 
         await newMessage.save();
-
+        /*
         //send message in real-time if user is online -socket.io
         const receiverSocketId = getReceiverSocketId(receiverId);
         if(receiverSocketId){
@@ -99,7 +113,19 @@ export const sendMessage = async (req, res) => {
         }
 
         res.status(201).json(newMessage);
+        */
+       try {
+            const io = getIO(); // safe singleton access
+            const receiverSocketId = getReceiverSocketId(receiverId);
+          if (receiverSocketId) {
+           io.to(receiverSocketId).emit("newMessage", newMessage);
+        }
+        } catch (err) {
+            console.warn("Socket.io emit failed:", err.message);
+         // Do NOT fail the request if socket emission fails
+     }
 
+    return res.status(201).json(newMessage);
 
     } catch (error) {
         
