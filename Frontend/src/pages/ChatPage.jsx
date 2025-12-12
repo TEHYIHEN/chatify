@@ -15,7 +15,7 @@ const ChatPage = () => {
     const { activeTab, selectedUser, setSelectedUser } = useChatStore();
 
     return (
-        <div className="relative w-full max-w-6xl h-[800px]">
+        <div className="relative w-full max-w-6xl h-screen lg:h-[800px]">
 
             <BorderAnimatedContainer>
 
@@ -38,16 +38,7 @@ const ChatPage = () => {
                     flex-1 flex flex-col bg-slate-900/50 backdrop-blur-sm
                     ${selectedUser ? "flex" : "hidden lg:flex"}
                 `}>
-                    {/* MOBILE BACK BUTTON */}
-                    {selectedUser && (
-                        <button
-                            className="lg:hidden px-4 py-2 text-white"
-                            onClick={() => setSelectedUser(null)}
-                        >
-                            ← Back
-                        </button>
-                    )}
-
+                    
                     {selectedUser ? <ChatContainer /> : <NoConversationPlaceholder />}
                 </div>
 
