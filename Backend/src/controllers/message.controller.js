@@ -3,6 +3,7 @@ import { getReceiverSocketId } from "../lib/socket.js";
 import Message from "../models/message.js";
 import User from "../models/user.js";
 import mongoose from "mongoose";
+import { io } from "../lib/socket.js";
 
 export const getAllContacts = async(req, res) => {
 
