@@ -12,30 +12,49 @@ import ChatContainer from '@/components/ChatContainer';
 
 const ChatPage = () => {
 
-    const {activeTab, selectedUser} = useChatStore();
+    const { activeTab, selectedUser, setSelectedUser } = useChatStore();
 
-  return (
-    <div className='relative w-full max-w-6xl h-[800px]'>
+    return (
+        <div className="relative w-full max-w-6xl h-[800px]">
 
-      <BorderAnimatedContainer>
-        {/*Left Side */}
-        <div className='w-80 bg-slate-800/50 backdrop-blur-sm flex flex-col'>
-          <ProfileHeader />
-          <ActiveTabSwitch />
+            <BorderAnimatedContainer>
 
-          <div className='flex-1 overflow-y-auto p-4 space-y-2'>
-            {activeTab === "chats" ? <ChatsList /> : <ContactList />}
-          </div>
+                {/* LEFT SIDEBAR — MOBILE: show only when NO chat selected */}
+                <div className={`
+                    bg-slate-800/50 backdrop-blur-sm flex flex-col
+                    w-full lg:w-80
+                    ${selectedUser ? "hidden lg:flex" : "flex"}
+                `}>
+                    <ProfileHeader />
+                    <ActiveTabSwitch />
+
+                    <div className="flex-1 overflow-y-auto p-4 space-y-2">
+                        {activeTab === "chats" ? <ChatsList /> : <ContactList />}
+                    </div>
+                </div>
+
+                {/* RIGHT CHAT AREA — MOBILE: full screen when chat selected */}
+                <div className={`
+                    flex-1 flex flex-col bg-slate-900/50 backdrop-blur-sm
+                    ${selectedUser ? "flex" : "hidden lg:flex"}
+                `}>
+                    {/* MOBILE BACK BUTTON */}
+                    {selectedUser && (
+                        <button
+                            className="lg:hidden px-4 py-2 text-white"
+                            onClick={() => setSelectedUser(null)}
+                        >
+                            ← Back
+                        </button>
+                    )}
+
+                    {selectedUser ? <ChatContainer /> : <NoConversationPlaceholder />}
+                </div>
+
+            </BorderAnimatedContainer>
+
         </div>
+    );
+};
 
-        {/*Right Side */}
-        <div className='flex-1 flex flex-col bg-state-900/50 backdrop-blur-sm'>
-          {selectedUser ? <ChatContainer/> : <NoConversationPlaceholder />}
-        </div>
-      </BorderAnimatedContainer>
-      
-    </div>
-  )
-}
-
-export default ChatPage
+export default ChatPage;
