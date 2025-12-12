@@ -3,7 +3,8 @@ import { getReceiverSocketId } from "../lib/socket.js";
 import Message from "../models/message.js";
 import User from "../models/user.js";
 import mongoose from "mongoose";
-
+import { io } from "../lib/socket.js";
+    
 export const getAllContacts = async(req, res) => {
 
     try {
@@ -34,7 +35,7 @@ export const getMessagesByUserId = async (req, res) => {
                 {senderId:myId, receiverId: userToChatId},
                 {senderId:userToChatId, receiverId:myId},
             ],
-        });
+        }); //try .sort({ createdAt: 1 }); // older first, or -1 for newest first
 
         res.status(200).json(message);
 
@@ -69,7 +70,7 @@ export const sendMessage = async (req, res) => {
         };
         
         
-        if (senderId.equals(receiverId)) {
+        if (senderId.toString() === receiverId) {
             return res.status(400).json({ message: "Cannot send messages to yourself." });
         };
         
@@ -115,7 +116,7 @@ export const sendMessage = async (req, res) => {
         res.status(201).json(newMessage);
         */
        try {
-            const io = getIO(); // safe singleton access
+            
             const receiverSocketId = getReceiverSocketId(receiverId);
           if (receiverSocketId) {
            io.to(receiverSocketId).emit("newMessage", newMessage);
@@ -138,7 +139,7 @@ export const getChatPartners = async (req, res) => {
     
     try {
         
-        const loggedInUserId = req.user._id;
+        const loggedInUserId = (req.user._id).toString();
 
         // find all message where the logged-in user is either sender or receiver
 
