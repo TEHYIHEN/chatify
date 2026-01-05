@@ -50,6 +50,29 @@ export const useAuthStore = create((set, get) => ({
         
     },
 
+    //a example axios vs fetch
+    /*try {
+         const res = await fetch("/auth/signup", {
+         method: "POST",
+         headers: { "Content-Type": "application/json" },
+         body: JSON.stringify(data)
+     });
+
+        // Check if the response is OK (status 200–299)
+        if (!res.ok) {
+        // Convert response to JSON to get error message
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Something went wrong");
+    }
+
+        const result = await res.json();
+        console.log("Signup successful:", result);
+  
+        // You can do further actions, e.g., update state, show toast
+    } catch (error) {
+        console.error("Signup failed:", error.message);
+        // Show toast or handle error in UI
+    }*/
     signup: async (data) => {
 
         set({isSigningUp:true});
