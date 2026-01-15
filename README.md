@@ -8,8 +8,7 @@
 - Real-time: Socket.io-client
 - Styling: Tailwind CSS + DaisyUI + Lucide Icons
 - Notifications: React Hot Toast
-
-   **Backend:**
+  **Backend:**
 - Server: Express 5.1 (Latest)
 - Database: MongoDB via Mongoose
 - Security: - Arcjet: Shielding the app against bots and common attacks.
@@ -17,8 +16,7 @@
 - JWT: Token-based authentication.
 - Media: Cloudinary SDK (Image/File uploads)
 - Communication: Socket.io (WebSockets) + Resend/Nodemailer (Email notifications)
-  
-   **Tools:**  
+  **Tools:**  
 - Git  
 - Postman
 
