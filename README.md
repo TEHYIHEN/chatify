@@ -18,8 +18,8 @@
 - Media: Cloudinary SDK (Image/File uploads)
 - Communication: Socket.io (WebSockets) + Resend/Nodemailer (Email notifications)
   
- **Tools:** 
- -Git
+ **Tools:**  
+ -Git  
  -Postman
 
 ## ✨ Key Features
