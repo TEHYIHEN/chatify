@@ -1,5 +1,5 @@
 # Project Name: [Chatify]
--###Chatify is a full-stack, real-time messaging application designed for high-performance communication. Beyond basic messaging, it integrates advanced **Security Shielding** and **Cloud Media Management**, making it a robust template for **enterprise internal communication tools**.
+- ### Chatify is a full-stack, real-time messaging application designed for high-performance communication. Beyond basic messaging, it integrates advanced **Security Shielding** and **Cloud Media Management**, making it a robust template for **enterprise internal communication tools**.
 
 ## 🛠 Tech Stack
   **Frontend:**
