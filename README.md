@@ -18,7 +18,9 @@
 - Media: Cloudinary SDK (Image/File uploads)
 - Communication: Socket.io (WebSockets) + Resend/Nodemailer (Email notifications)
   
-- **Tools:** Git, Postman
+ **Tools:** 
+ -Git
+ -Postman
 
 ## ✨ Key Features
 - **Real-time Messaging:** Low-latency communication via WebSockets.
