@@ -7,7 +7,8 @@
 - State Management: Zustand (Lightweight and faster than Redux)
 - Real-time: Socket.io-client
 - Styling: Tailwind CSS + DaisyUI + Lucide Icons
-- Notifications: React Hot Toast
+- Notifications: React Hot Toast  
+  
   **Backend:**
 - Server: Express 5.1 (Latest)
 - Database: MongoDB via Mongoose
@@ -15,7 +16,8 @@
 - Bcryptjs: Secure password hashing.
 - JWT: Token-based authentication.
 - Media: Cloudinary SDK (Image/File uploads)
-- Communication: Socket.io (WebSockets) + Resend/Nodemailer (Email notifications)
+- Communication: Socket.io (WebSockets) + Resend/Nodemailer (Email notifications)  
+  
   **Tools:**  
 - Git  
 - Postman
