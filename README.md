@@ -19,8 +19,8 @@
 - Communication: Socket.io (WebSockets) + Resend/Nodemailer (Email notifications)
   
   **Tools:**  
- -Git  
- -Postman
+- Git  
+- Postman
 
 ## ✨ Key Features
 - **Real-time Messaging:** Low-latency communication via WebSockets.
