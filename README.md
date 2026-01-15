@@ -1,5 +1,5 @@
 # Project Name: [Chatify]
--Chatify is a full-stack, real-time messaging application designed for high-performance communication. Beyond basic messaging, it integrates advanced **Security Shielding** and **Cloud Media Management**, making it a robust template for **enterprise internal communication tools**.
+-###Chatify is a full-stack, real-time messaging application designed for high-performance communication. Beyond basic messaging, it integrates advanced **Security Shielding** and **Cloud Media Management**, making it a robust template for **enterprise internal communication tools**.
 
 ## 🛠 Tech Stack
   **Frontend:**
@@ -33,13 +33,13 @@
 - **Learning:** Deepened understanding of asynchronous JavaScript and event-driven architecture.
 
 ## 🔧 Installation & Setup
-1.Clone the Repo
--put the command line below:
+1.Clone the Repo  
+-put the command line below:  
 git clone https://github.com/TEHYIHEN/chatify.git  
 cd chatify
 
-2.Backend Configuration
--Create .env in the Backend folder:
+2.Backend Configuration  
+-Create .env in the Backend folder:  
 
 PORT=5001  
 MONGODB_URI=your_mongodb_uri  
@@ -50,7 +50,7 @@ RESEND_API_KEY=...
 RESEND_SMTP_USERNAME=...  
 RESEND_SMTP_PASSWORD=...  
 
-3.Install & Run (Root Folder)
--put the command line below:
-npm run build  # Installs both Backend & Frontend dependencies
+3.Install & Run (Root Folder)  
+-put the command line below:  
+npm run build  # Installs both Backend & Frontend dependencies  
 npm start      # Starts the production server
