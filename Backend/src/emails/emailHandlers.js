@@ -3,8 +3,9 @@ import { createWelcomeEmailTemplate } from "../emails/emailTemplate.js";
 import nodemailer from "nodemailer";
 import "dotenv/config";
 
-/*export const sendWelcomeEmail = async (email,name,clientURL) =>{
+export const sendWelcomeEmail = async (email,name,clientURL) =>{
 
+  try{
     const {data,error} = await resendClient.emails.send({
         
         from:`${sender.name} <${sender.email}>`,
@@ -19,10 +20,15 @@ import "dotenv/config";
     }
 
     console.log("Welcome Email sent successfully", data);
-};*/
+  }catch (err){
+
+   console.error("Failed to send welcome email:", err);
+   throw err;
+}
+};
 
 
-export const sendWelcomeEmail = async (email, name, clientURL) => {
+/*export const sendWelcomeEmail = async (email, name, clientURL) => {
   try {
 
     console.log("SMTP username:", process.env.RESEND_SMTP_USERNAME);
@@ -57,7 +63,7 @@ export const sendWelcomeEmail = async (email, name, clientURL) => {
     throw error; // Re-throw the original error for more detail
   }
 };
-
+*/
 
 
 
