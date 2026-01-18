@@ -10,7 +10,7 @@ export const useAuthStore = create((set, get) => ({
 
     /*----------------------------------------------------
     //For testing zustand
-    authUser:{name:"john", _id:123, age:25},
+    authUser:{name:"john", _id:123, age:25},z
     isLoggedIn:false,
     isLoading:false,
 
