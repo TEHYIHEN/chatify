@@ -39,7 +39,7 @@ export const useAuthStore = create((set, get) => ({
             
         } catch (error) {
             
-             if (error.response?.status !== 401) {
+             if (error.response?.status === 401) {
             set({authUser:null});
             return;
         }
