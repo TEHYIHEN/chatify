@@ -24,6 +24,11 @@ import "dotenv/config";
 
 export const sendWelcomeEmail = async (email, name, clientURL) => {
   try {
+
+    console.log("SMTP username:", process.env.RESEND_SMTP_USERNAME);
+    console.log("SMTP password exists:", !!process.env.RESEND_SMTP_PASSWORD);
+    console.log("Email from:", `"${sender.name}" <${sender.email}>`);
+
     const transporter = nodemailer.createTransport({
       host: "smtp.resend.com",
       port: 587,
@@ -33,6 +38,9 @@ export const sendWelcomeEmail = async (email, name, clientURL) => {
         pass: process.env.RESEND_SMTP_PASSWORD
       }
     });
+
+    await transporter.verify();
+    console.log("SMTP connection is ready");
 
     const mailOptions = {
       from: `"${sender.name}" <${sender.email}>`,
@@ -49,3 +57,8 @@ export const sendWelcomeEmail = async (email, name, clientURL) => {
     throw error; // Re-throw the original error for more detail
   }
 };
+
+
+
+
+
