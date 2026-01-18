@@ -31,8 +31,8 @@ export const sendWelcomeEmail = async (email, name, clientURL) => {
 
     const transporter = nodemailer.createTransport({
       host: "smtp.resend.com",
-      port: 587,
-      secure: false, // TLS
+      port: 465,
+      secure: true, // TLS
       auth: {
         user: process.env.RESEND_SMTP_USERNAME,
         pass: process.env.RESEND_SMTP_PASSWORD
