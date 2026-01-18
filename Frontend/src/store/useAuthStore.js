@@ -40,9 +40,11 @@ export const useAuthStore = create((set, get) => ({
         } catch (error) {
             
              if (error.response?.status !== 401) {
-            console.error("Error in authCheck:", error);
-        }
             set({authUser:null});
+            return;
+        }
+            
+            console.error("Error in authCheck:", error);
 
         } finally {
 
